@@ -1,7 +1,7 @@
 <div class="pt-3 pb-2 mb-3 border-bottom">
   <h1 class="h2">Add Student</h1>
 </div>
-<form #addForm="ngForm" (ngSubmit)="save()">
+<form  (ngSubmit)="save()" #formAdd="ngForm">
   <div class="row">
     <div class="col-lg-5 col-md-12 col-sm-12">
       <div class="row">
@@ -17,15 +17,15 @@
       <div class="row">
         <div class="col-md-12 mb-3">
           <label>Email</label>
-          <input type="email"  class="form-control">
+          <input type="email" name="email" class="form-control" [(ngModel)]="student.email">
         </div>
         <div class="col-md-12 mb-3">
           <label>Password</label>
-          <input type="password" class="form-control">
+          <input type="password" name="password" class="form-control" [(ngModel)]="student.password">
         </div>
         <div class="col-md-12 mb-3">
           <label>Phone number</label>
-          <input type="text" class="form-control">
+          <input type="text" name="phone" class="form-control" [(ngModel)]="student.phone">
         </div>
       </div>
       <div class="form-group text-right">

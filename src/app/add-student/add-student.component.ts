@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { Student } from '../sahred/models/student';
-import { StudentService } from '../sahred/services/student.service';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { StudentService } from '../shared/services/student.service';
+import { Student } from '../shared/models/student';
+import { ActivatedRoute } from '@angular/router';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-add-student',
@@ -9,14 +11,33 @@ import { StudentService } from '../sahred/services/student.service';
 })
 export class AddStudentComponent implements OnInit {
 
+  @ViewChild('formAdd', {static: false}) formAdd: NgForm;
+
+  constructor(private studentService: StudentService, private route: ActivatedRoute) { }
   public student = new Student();
 
-  constructor( private studentService: StudentService) { }
-
   ngOnInit(): void {
+    let id = this.route.snapshot.queryParams["id"];
+    if (id) {
+      this.getStudent(id);
+    }
   }
 
   save() {
-    this.studentService.AddStudent({ ...this.student })
+    if (!this.student.id) {
+      this.studentService.addStudent({ ...this.student }).then((res) => {
+        this.formAdd.resetForm();
+      })
+    } else {
+      this.studentService.updateStudent(this.student);
+    }
   }
+
+  getStudent(id) {
+    this.studentService.getStudent(id).subscribe(res => {
+      this.student = res.data() as Student;
+      this.student.id = res.id;
+    });
+  }
+
 }
