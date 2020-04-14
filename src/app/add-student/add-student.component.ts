@@ -17,27 +17,11 @@ export class AddStudentComponent implements OnInit {
   public student = new Student();
 
   ngOnInit(): void {
-    let id = this.route.snapshot.queryParams["id"];
-    if (id) {
-      this.getStudent(id);
-    }
   }
 
   save() {
-    if (!this.student.id) {
-      this.studentService.addStudent({ ...this.student }).then((res) => {
-        this.formAdd.resetForm();
-      })
-    } else {
-      this.studentService.updateStudent(this.student);
-    }
+      this.studentService.addStudent({ ...this.student });
   }
 
-  getStudent(id) {
-    this.studentService.getStudent(id).subscribe(res => {
-      this.student = res.data() as Student;
-      this.student.id = res.id;
-    });
-  }
 
 }

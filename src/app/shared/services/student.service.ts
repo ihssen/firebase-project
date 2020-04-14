@@ -13,20 +13,4 @@ export class StudentService {
   addStudent(student: Student) {
     return this.fireStore.collection('students').add(student);
   }
-
-  getStudentsList() {
-    return  this.fireStore.collection('students').snapshotChanges();
-  }
-
-  deleteStudent(studentId: string){
-    this.fireStore.doc('students/' + studentId).delete();
-  }
-
-  getStudent(id: string) {
-    return this.fireStore.doc('student/' + id).get();
-  }
-
-  updateStudent(student: Student) {
-    return this.fireStore.doc('students/' + student.id).update(student);
-  }
 }
