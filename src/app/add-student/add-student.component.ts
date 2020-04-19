@@ -11,16 +11,28 @@ import { NgForm } from '@angular/forms';
 })
 export class AddStudentComponent implements OnInit {
 
-  @ViewChild('formAdd', {static: false}) formAdd: NgForm;
+  @ViewChild('addForm', {static: false}) formAdd: NgForm;
 
   constructor(private studentService: StudentService, private route: ActivatedRoute) { }
   public student = new Student();
 
   ngOnInit(): void {
+    let id = this.route.snapshot.queryParams['idStudent'];
+    if (id) {
+      this.getStudent(id);
+    }
   }
 
   save() {
-      this.studentService.addStudent({ ...this.student });
+    this.studentService.addStudent({ ...this.student}).then((res) => {
+      this.formAdd.resetForm();
+    });
+  }
+
+  getStudent(id :string) {
+    this.studentService.getStudent(id).subscribe(res => {
+      this.student = res.data() as Student;
+    });
   }
 
 
