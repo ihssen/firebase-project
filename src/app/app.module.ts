@@ -9,6 +9,8 @@ import { environment } from 'src/environments/environment';
 import { Routes, RouterModule } from '@angular/router'
 import { AddStudentComponent } from './add-student/add-student.component';
 import { ListStudentsComponent } from './list-students/list-students.component';
+import { ToastrModule, ToastrService } from 'ngx-toastr';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 const routes: Routes = [
   { path: 'add-student', component: AddStudentComponent },
@@ -27,9 +29,11 @@ const routes: Routes = [
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFireDatabaseModule,
     BrowserModule, RouterModule.forRoot(routes),
+    BrowserAnimationsModule, // required animations module
+    ToastrModule.forRoot()
 
   ],
-  providers: [],
+  providers: [ToastrService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

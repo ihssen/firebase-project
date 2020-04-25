@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { StudentService } from '../shared/services/student.service';
 import { Student } from '../shared/models/student';
+import Swal from 'sweetalert2/dist/sweetalert2.js';
 
 @Component({
   selector: 'app-list-students',
@@ -12,7 +13,7 @@ export class ListStudentsComponent implements OnInit {
   students: Student[];
   constructor(private studentService: StudentService) { }
 
-  ngOnInit(): void {
+  ngOnInit() {
     this.getAllStudents();
   }
 
@@ -28,7 +29,19 @@ export class ListStudentsComponent implements OnInit {
   }
 
   delete(id: string) {
-    this.studentService.deleteStudent(id);
+
+    Swal.fire({
+      title: 'Are you sure?',
+      text: "You won't be able to revert this!",
+      icon: 'error',
+      showCancelButton: true,
+      confirmButtonColor: 'red',
+      confirmButtonText: 'Yes, delete it!',
+    }).then((result) => {
+      if (result.value) {
+        this.studentService.deleteStudent(id);
+      }
+    })
   }
 
 }

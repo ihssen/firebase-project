@@ -25,4 +25,8 @@ export class StudentService {
   getStudent(id :string) {
     return this.fireStore.doc('students/' + id).get();
   }
+
+  updateStudent(student: Student) {
+    return this.fireStore.doc('students/' + student.id).set(student);
+  }
 }
