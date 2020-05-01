@@ -11,7 +11,7 @@
                 required
                 minlength="3"
                 #firstNameValidator="ngModel">
-          <div *ngIf="(firstNameValidator.invalid && firstNameValidator.touched)
+          <div *ngIf="(firstNameValidator.pristine)
                       || (firstNameValidator.invalid && formAdd.submitted) " class="alert alert-danger">
             <div *ngIf="firstNameValidator.errors.required"> Name is required</div>
             <div *ngIf="firstNameValidator.errors.minlength"> at least 3 carcters</div>
